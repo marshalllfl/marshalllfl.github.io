@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>L.Control.Credits</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- the control code, just these two files -->
+    <script type="text/javascript" src="dist/leaflet-control-credits.js"></script>
+    <link rel="stylesheet" href="dist/leaflet-control-credits.css" />
+
+    <!-- the remaining HTML and JS is for the demo -->
+    <style type="text/css" >
+    body {
+    	padding: 0;
+	margin: 0;
+    }
+    html, body, #map {
+	height: 100%;
+    }
+    </style>
+    <style type="text/css">
+    /* hack for Leaflet 1.7.1 which only flashes ARIA outlines (though keeps focus) which misses the point of ARIA outlines */
+    .leaflet-container :focus {
+        outline-color: -webkit-focus-ring-color !important;
+        outline-style: auto !important;
+        outline-width: thin !important;
+        outline: revert !important;
+    }
+    </style>
+
+    <script type="text/javascript">
+    var credits;
+    function init() {
+    	var map = L.map('map', {
+            maxZoom: 18,
+            minZoom: 6,
+            keyboard: true,
+        });
+    	L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    	    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    	}).addTo(map);
+        map.setView([37.7833,-122.4167], 12);
+
+        credits = L.controlCredits({
+        	imageurl: './greeninfo.png',
+          imagealt: 'GreenInfo credits',
+        	tooltip: 'Made by GreenInfo Network',
+        	width: '45px',
+        	height: '45px',
+        	expandcontent: 'Interactive mapping<br/>by <a href="https://www.greeninfo.org/" target="_blank">GreenInfo Network</a>',
+        }).addTo(map);
+    }
+    </script>
+</head>
+<body onLoad="init()">
+
+    <div id="map" tabindex="0"></div>
+
+</body>
+</html>
